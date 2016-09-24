@@ -1,0 +1,74 @@
+#!/usr/bin/expect  
+set timeout 20  
+  
+# if { [llength $argv] < 2} {  
+#     puts "Usage:"  
+#     puts "$argv0 local_file remote_path"  
+#     exit 1  
+# }  
+  
+# set local_file [lindex $argv 0]  
+# set remote_path [lindex $argv 1]  
+# set passwd your_passwd
+set passwd [lindex $argv 0]  
+  
+set passwderror 0  
+  
+# spawn scp $local_file $remote_path  
+spawn sudo vpnc
+
+expect "*maxuelin:*"
+send "$passwd\r"
+expect "*gateway address:*"
+send "61.144.43.67\r"
+expect "*ID for 61.144.43.67:*" 
+send "chaosuan\r"
+expect "*secret for chaosuan@61.144.43.67:*" 
+send "gzcszx@123\r"        
+expect "*username for 61.144.43.67:*" 
+send "nsfc2015_476\r"
+expect "*password for nsfc2015_476@61.144.43.67:*"
+send "S3e398yd\r"
+expect eof
+# exit
+
+
+
+# expect {
+#     "*maxuelin:*" {
+#         # if { $passwderror == 1 } {
+#         # puts "passwd is error"
+#         # exit 2
+#         # }
+#         # sen timeout 1000
+#         # set passwderror 1
+#         send "mxl"
+#         exp_continue
+#     }
+#     "*gateway address:*" {
+#         send "61.144.43.67"
+#         exp_continue
+#     }
+#     "*ID for 61.144.43.67:*" {
+#         send "chaosuan"
+#         exp_continue
+#     }
+#     "*secret for chaosuan@61.144.43.67:*" {
+#         send "gzcszx@123"
+#         exp_continue
+#     }
+#     "*username for 61.144.43.67:*" {
+#         send "nsfc2015_476"
+#         exp_continue
+#     }
+#     "*password for nsfc2015_476@61.144.43.67:*" {
+#         send "S3e398yd"
+#         exp_continue
+#     }
+#     timeout {  
+#         puts "connect is timeout"  
+#         exit 3  
+#     }  
+# }
+spawn ssh -i ~/Documents/nsfc2015_476.id -p 23 nsfc2015_476@172.16.22.11
+interact
